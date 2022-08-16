@@ -19,7 +19,8 @@
     "eslint": "eslint \"{src/**/*,App}.{ts,tsx}\"",
     "lint": "pnpm run prettier && pnpm run eslint --fix",
     "lint-watch": "onchange --await-write-finish 5500 \"**/*\" -- pnpm run lint",
-    "size": "size-limit"
+    "size": "size-limit",
+    "postpublish": "git fetch & git pull"
   },
   "husky": {
     "hooks": {
