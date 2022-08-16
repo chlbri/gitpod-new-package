@@ -11,6 +11,13 @@ jobs:
     runs-on: ubuntu-latest
      
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - uses: pnpm/action-setup@v2.2.2
+        with:
+          version: latest
+
       - name: Publish
         uses: JS-DevTools/npm-publish@v1
         with:
@@ -18,5 +25,5 @@ jobs:
           greater-version-only: true
 
       - name: TODO => Notification
-        run: echo 'TODO => Build a Notification'
+        run: echo 'TODO => Build a Notification pipeline'
         
