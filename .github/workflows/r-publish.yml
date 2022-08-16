@@ -1,13 +1,21 @@
 name: R-publish
-on: 
-  workflow_call:
-
-env:
-  key1: ${{secrets.NPM_TOKEN}}
+on: workflow_call
 
 jobs:
+  check-secret:
+    runs-on: ubuntu-latest
+    outputs:
+      my-key: ${{ steps.my-key.outputs.defined }}
+    steps:
+    - id: my-key
+      if: "${{ env.MY_KEY != '' }}"
+      run: echo "::set-output name=defined::true"
+      env:
+        MY_KEY: ${{secrets.NPM_TOKEN}}
+
   publish:
-    if: ${{env.key1 != null}}
+    needs: [check-secret]
+    if: needs.check-secret.outputs.my-key == 'true'
     name: Publish
     runs-on: ubuntu-latest
      
