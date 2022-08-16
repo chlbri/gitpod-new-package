@@ -68,6 +68,7 @@ jobs:
           git fetch
           git pull
         # git 1
+        # git 2
 
       - name: Revert CI-commmit
         run: |
