@@ -9,8 +9,8 @@ on:
 
 jobs:
   on-success:
+    if: ${{ github.event.workflow_run.conclusion == 'success' && secrets.NPM_TOKEN }}
     uses: ./.github/workflows/r-publish.yml
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     secrets: inherit
      
 
