@@ -72,7 +72,7 @@ jobs:
         run: |
           git config --global user.email "revert@beme.dev"
           git config --global user.name "Beme Revert Action"
-          git revert ${{ needs.build.outputs.commit_sha }} --no-edit --continue
+          git --continue revert ${{ needs.build.outputs.commit_sha }} --no-edit 
           git push
 
   
