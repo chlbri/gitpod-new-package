@@ -37,6 +37,7 @@ jobs:
         with:
           commit: --allow-empty
           message: 'ci-auto: build'
+          committer_name: Build
 
         
   check-secret:
@@ -45,17 +46,20 @@ jobs:
     secrets: 
       secret: ${{ secrets.NPM_TOKEN }}
 
-  publish:
-    name: Publish
-    needs: [check-secret, build]
-    if: needs.check-secret.outputs.defined == 'true'
-    uses: ./.github/workflows/publish.yml
-    secrets: 
-      token: ${{ secrets.NPM_TOKEN }}
+  # publish:
+  #   name: Publish
+  #   needs: [check-secret, build]
+  #   if: needs.check-secret.outputs.defined == 'true'
+  #   uses: ./.github/workflows/publish.yml
+  #   secrets: 
+  #     token: ${{ secrets.NPM_TOKEN }}
 
   clean:
     runs-on: ubuntu-latest
-    needs: [build, check-secret, publish]
+    needs: 
+      - build 
+      - check-secret
+      # - publish
     steps:
 
       - name: Checkout repo
@@ -72,7 +76,7 @@ jobs:
           git fetch
           git pull
           git revert ${{ needs.build.outputs.commit_sha }} --no-edit
-          git push -f
+          git push
 
   
       
