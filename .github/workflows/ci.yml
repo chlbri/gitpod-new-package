@@ -27,6 +27,9 @@ jobs:
 
       # - name: Build
       #   run: pnpm build
+
+      - name: Commit
+        uses: EndBug/add-and-commit@v9
         
   check-secret:
     name: Check NPM_TOKEN
