@@ -60,7 +60,9 @@ jobs:
       
       - name: Revert CI-commmit
         run: |
-          git revert ${{ needs.build.outputs.commit_sha }} --no-edit
+          git config --global user.email "revert@github.com"
+          git config --global user.name "GitHub Revert Action"
+          git revert "${{ needs.build.outputs.commit_sha }}" --no-edit
           git push -f
 
   
