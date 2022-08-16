@@ -28,16 +28,14 @@ jobs:
       # - name: Build
       #   run: pnpm build
 
-      - name: Add some
-        run: touch somefile.txt
-
       - name: Commit
         id: commit
         uses: EndBug/add-and-commit@v9
         with:
           commit: --allow-empty
           message: 'ci-auto: build'
-          committer_name: Build
+          author_name: beme.dev
+          author_email: build@beme.dev
 
         
   check-secret:
@@ -64,17 +62,14 @@ jobs:
 
       - name: Checkout repo
         uses: actions/checkout@v3
-
-      - name: Show Git Log
-        run: git log -n 1
-        #
+        run: |
+          git fetch
+          git pull
       
       - name: Revert CI-commmit
         run: |
-          git config --global user.email "revert@github.com"
-          git config --global user.name "GitHub Revert Action"
-          git fetch
-          git pull
+          git config --global user.email "revert@beme.dev"
+          git config --global user.name "Beme Revert Action"
           git revert ${{ needs.build.outputs.commit_sha }} --no-edit
           git push
 
