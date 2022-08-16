@@ -60,7 +60,7 @@ jobs:
       
       - name: Revert CI-commmit
         run: |
-          git reset -- ${{ needs.build.outputs.commit_sha }} --hard
+          git revert -- ${{ needs.build.outputs.commit_sha }} --hard
           git push -f
 
   
