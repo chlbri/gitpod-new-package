@@ -6,7 +6,7 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    
+
     strategy:
       matrix:
         node: ['14.x']
@@ -40,7 +40,6 @@ jobs:
         run: pnpm build
         
   check-secret:
-    needs: build
     name: Check NPM_TOKEN
     uses: ./.github/workflows/check-secret.yml
     secrets: 
@@ -48,7 +47,7 @@ jobs:
 
   publish:
     name: Publish
-    needs: check-secret
+    needs: [check-secret, build]
     if: needs.check-secret.outputs.define == 'true'
     uses: ./.github/workflows/publish.yml
     secrets: 
