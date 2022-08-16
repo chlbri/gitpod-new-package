@@ -7,7 +7,6 @@ jobs:
   publish:
     name: Publish
     runs-on: ubuntu-latest
-    if: env.key1 != null
      
     steps:
       - name: Checkout repo
