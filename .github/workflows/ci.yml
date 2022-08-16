@@ -7,22 +7,14 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node: ['14.x']
-
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
 
-      - name: Use Node ${{ matrix.node }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node }}
-
       - uses: pnpm/action-setup@v2.2.2
         with:
           version: latest
+          run_install: true
 
       - name: echo
         run: echo ${{github.ref_name}}
