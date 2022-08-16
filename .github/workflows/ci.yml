@@ -60,7 +60,6 @@ jobs:
 
       - name: Show Git Log
         run: git log -n 1
-        # 
       
       - name: Revert CI-commmit
         run: |
