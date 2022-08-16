@@ -48,7 +48,7 @@ jobs:
   publish:
     name: Publish
     needs: [check-secret, build]
-    if: needs.check-secret.outputs.define == 'true'
+    if: needs.check-secret.outputs.defined == 'true'
     uses: ./.github/workflows/publish.yml
     secrets: 
       token: ${{ secrets.NPM_TOKEN }}
