@@ -1,19 +1,15 @@
 name: Publish
-env:
-  key1: ${{secrets.NPM_TOKEN}}
-
 
 on: 
   workflow_run:
     workflows: [CI]
     types: 
       - completed
-    branches: [main, master, dev]
-    
+    branches: [main, master, dev] 
 
 jobs:
   on-success:
-    if: ${{ github.event.workflow_run.conclusion == 'success' && env.key1 != null }}
+    if: ${{ github.event.workflow_run.conclusion == 'success'  }}
     uses: ./.github/workflows/r-publish.yml
     secrets: inherit
      

@@ -2,9 +2,12 @@ name: R-publish
 on: 
   workflow_call:
 
+env:
+  key1: ${{secrets.NPM_TOKEN}}
 
 jobs:
   publish:
+    if: env.key1 != null
     name: Publish
     runs-on: ubuntu-latest
      
