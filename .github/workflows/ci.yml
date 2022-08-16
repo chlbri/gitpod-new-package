@@ -14,28 +14,19 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      # - uses: pnpm/action-setup@v2.2.2
-      #   with:
-      #     version: latest
-      #     run_install: true
-
-      # - name: Lint
-      #   run: pnpm lint
-
-      # - name: Test
-      #   run: pnpm run test --ci --coverage --maxWorkers=2
-
-      # - name: Build
-      #   run: pnpm build
-
-      - name: Commit
-        id: commit
-        uses: EndBug/add-and-commit@v9
+      - uses: pnpm/action-setup@v2.2.2
         with:
-          commit: --allow-empty
-          message: 'ci-auto: build'
-          author_name: beme.dev
-          author_email: build@beme.dev
+          version: latest
+          run_install: true
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Test
+        run: pnpm run test --ci --coverage --maxWorkers=2
+
+      - name: Build
+        run: pnpm build
 
         
   check-secret:
@@ -44,33 +35,25 @@ jobs:
     secrets: 
       secret: ${{ secrets.NPM_TOKEN }}
 
-  # publish:
-  #   name: Publish
-  #   needs: [check-secret, build]
-  #   if: needs.check-secret.outputs.defined == 'true'
-  #   uses: ./.github/workflows/publish.yml
-  #   secrets: 
-  #     token: ${{ secrets.NPM_TOKEN }}
+  publish:
+    name: Publish
+    needs: [check-secret, build]
+    if: needs.check-secret.outputs.defined == 'true'
+    uses: ./.github/workflows/publish.yml
+    secrets: 
+      token: ${{ secrets.NPM_TOKEN }}
 
   clean:
     runs-on: ubuntu-latest
     needs: 
       - build 
       - check-secret
-      # - publish
+      - publish
+      
     steps:
 
       - name: Checkout repo
         uses: actions/checkout@v3
        
-      - name: Repull
-        run: |
-          git fetch
-          git pull
-
-      - name: Revert CI-commmit
-        run: |
-          git config --global user.email "revert@beme.dev"
-          git config --global user.name "beme.dev"
-          git revert ${{ needs.build.outputs.commit_sha }} --no-edit || true
-          git push
+      - name: Some
+        run: echo "TODO => Cleaning up"
