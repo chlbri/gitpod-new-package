@@ -71,9 +71,6 @@ jobs:
       - name: Revert CI-commmit
         run: |
           git config --global user.email "revert@beme.dev"
-          git config --global user.name "Beme Revert Action"
+          git config --global user.name "beme.dev"
           git revert ${{ needs.build.outputs.commit_sha }} --no-edit || true
           git push
-
-  
-      
