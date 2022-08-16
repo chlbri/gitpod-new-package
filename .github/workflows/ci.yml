@@ -66,7 +66,8 @@ jobs:
         run: |
           git config --global user.email "revert@github.com"
           git config --global user.name "GitHub Revert Action"
-          git fetch --all
+          git fetch
+          git pull
           git revert ${{ needs.build.outputs.commit_sha }} --no-edit
           git push -f
 
