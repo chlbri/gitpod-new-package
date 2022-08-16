@@ -37,8 +37,3 @@ jobs:
 
       - name: Build
         run: pnpm build
-  publish:
-    env:
-      NPM_TOKEN: ${{ github.head_ref }}
-    steps:
-      - run: echo ${{github.ref_name}}
