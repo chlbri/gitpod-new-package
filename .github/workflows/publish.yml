@@ -16,14 +16,19 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
       
-      - uses: pnpm/action-setup@v2
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2.2.2
         with:
-          version: 6.32.9
-
-      - uses: actions/setup-node@v3
+          version: latest
+      
+      - name: Setup cache
+        uses: actions/cache@v3
         with:
-          node-version: 16
-          cache: 'pnpm'
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
+            ${{ runner.os }}-
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
