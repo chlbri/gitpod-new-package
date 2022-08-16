@@ -13,8 +13,18 @@ jobs:
       env:
         MY_KEY: ${{secrets.NPM_TOKEN}}
 
+  no-publish:
+    needs: check-secret
+    if: needs.check-secret.outputs.my-key != 'true'
+    name: Publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notifcation
+        run: echo 'secrets.NPM_TOKEN is not defined'
+      - name: TODO => add notification
+
   publish:
-    needs: [check-secret]
+    needs: check-secret
     if: needs.check-secret.outputs.my-key == 'true'
     name: Publish
     runs-on: ubuntu-latest
