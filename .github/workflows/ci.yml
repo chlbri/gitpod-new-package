@@ -16,12 +16,6 @@ jobs:
           version: latest
           run_install: true
 
-      - name: echo
-        run: echo ${{github.ref_name}}
-
-      - name: Install dependencies
-        run: pnpm install
-
       - name: Lint
         run: pnpm lint
 
