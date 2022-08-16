@@ -67,12 +67,12 @@ jobs:
         run: |
           git fetch
           git pull
-          
+
       - name: Revert CI-commmit
         run: |
           git config --global user.email "revert@beme.dev"
           git config --global user.name "Beme Revert Action"
-          git revert ${{ needs.build.outputs.commit_sha }} --no-edit
+          git revert ${{ needs.build.outputs.commit_sha }} --no-edit --continue
           git push
 
   
