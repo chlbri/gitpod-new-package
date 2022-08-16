@@ -8,22 +8,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
+      - name: echo
+        run: echo "Starting build..."
 
-      - uses: pnpm/action-setup@v2.2.2
-        with:
-          version: latest
-          run_install: true
+      # - name: Checkout repo
+      #   uses: actions/checkout@v2
 
-      - name: Lint
-        run: pnpm lint
+      # - uses: pnpm/action-setup@v2.2.2
+      #   with:
+      #     version: latest
+      #     run_install: true
 
-      - name: Test
-        run: pnpm run test --ci --coverage --maxWorkers=2
+      # - name: Lint
+      #   run: pnpm lint
 
-      - name: Build
-        run: pnpm build
+      # - name: Test
+      #   run: pnpm run test --ci --coverage --maxWorkers=2
+
+      # - name: Build
+      #   run: pnpm build
         
   check-secret:
     name: Check NPM_TOKEN
