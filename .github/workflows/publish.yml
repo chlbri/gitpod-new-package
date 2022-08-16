@@ -14,11 +14,6 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
-      - uses: pnpm/action-setup@v2.2.2
-        with:
-          version: latest
-          # run_install: true
-
       - name: Publish
         uses: JS-DevTools/npm-publish@v1
         with:
