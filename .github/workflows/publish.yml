@@ -1,5 +1,9 @@
 name: Publish
 on: 
+  push:
+    branches:
+      - master
+      - main
   pull_request:
     branches:
       - master
@@ -38,7 +42,7 @@ jobs:
         with:
           token: ${{ secrets.NPM_TOKEN }}
           greater-version-only: true
-          dry-run: true
+          access: public
 
       # - name: TODO => Notification
       #   run: echo 'TODO => Build a Notification pipeline'
