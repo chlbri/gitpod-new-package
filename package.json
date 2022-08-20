@@ -1,34 +1,29 @@
 {
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "MIT",
-  "type": "module",
   "main": "lib/index.js",
-  "umd:main": "lib/index.umd.js",
-  "unpkg": "lib/index.umd.js",
+  "module": "lib/index.mjs",
   "typings": "lib/index.d.ts",
   "files": [
-    "lib",
-    "src"
+    "lib"
   ],
   "engines": {
     "node": ">=12"
   },
-  "exports": {
-    "require": "./lib/index.cjs",
-    "default": "./lib/index.modern.js"
-  },
   "scripts": {
     "config": "pnpm install",
-    "start": "pnpm run config && microbundle watch",
-    "build": "rm -rf lib && microbundle",
-    "test": "jest",
+    "start": "pnpm run config && pnpm run build --watch",
+    "build": "rm -rf lib && rollup -c --configPlugin typescript",
+    "test": "vitest run",
+    "coverage": "vitest run --coverage && rm -rf coverage",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui",
     "remove": "rm -rf lib node_modules pnpm-lock.yaml",
     "clean": "pnpm run remove && pnpm run config",
-    "test-watch": "pnpm test -- --watch",
     "prettier": "prettier --write \"src/**/*.{ts,tsx}\"",
     "eslint": "eslint \"{src/**/*,App}.{ts,tsx}\"",
     "lint": "pnpm run prettier && pnpm run eslint --fix",
-    "lint-watch": "onchange --await-write-finish 5500 \"**/*\" -- pnpm run lint",
+    "lint:watch": "onchange -d 1000 --await-write-finish 5500 \"**/*\" -- pnpm run lint",
     "postpublish": "git fetch & git pull",
     "prepublishOnly": "pnpm run build && pnpm run lint"
   },
@@ -37,33 +32,46 @@
       "pre-commit": "prettier --write \"**/**.{ts,tsx,json,js,jsx,yml}\""
     }
   },
-  "name": "tobeChanged",
+  "name": "@bemedev/changed",
   "author": "chlbri",
-  "module": "lib/index.esm.js",
   "peerDependencies": {
-    "tslib": "^2.4.0",
-    "typescript": "^4.7.4",
-    "xstate": "^4.33.2"
+    "rxjs": "^7.5.6"
+  },
+  "peerDependenciesMeta": {
+    "rxjs": {
+      "optional": false
+    }
   },
   "devDependencies": {
-    "@swc/core": "^1.2.239",
-    "@swc/jest": "^0.2.22",
-    "@types/jest": "^28.1.7",
+    "@rollup/plugin-typescript": "^8.3.4",
     "@types/node": "^18.7.6",
     "@typescript-eslint/eslint-plugin": "^5.33.1",
     "@typescript-eslint/parser": "^5.33.1",
+    "@vitest/coverage-c8": "^0.22.1",
+    "@vitest/ui": "^0.22.1",
+    "esbuild": "^0.15.5",
     "eslint": "^8.22.0",
     "husky": "^8.0.1",
-    "jest": "27.5.0",
-    "jest-extended": "^3.0.2",
     "microbundle": "^0.15.1",
     "onchange": "^7.1.0",
     "prettier": "^2.7.1",
+    "rollup": "^2.78.1",
+    "rollup-plugin-dts": "^4.2.2",
+    "rollup-plugin-esbuild": "^4.9.3",
+    "rollup-plugin-terser": "^7.0.2",
+    "rxjs": "^7.5.6",
     "size-limit": "^8.0.1",
+    "tslib": "^2.4.0",
     "typescript": "^4.7.4",
-    "xstate": "^4.33.2"
+    "vite": "^3.0.9",
+    "vitest": "^0.22.1"
   },
   "wallaby": {
-    "slowTestThreshold": 200
+    "slowTestThreshold": 200,
+    "runMode": "onSave",
+    "hints": {
+      "ignoreCoverageForFile": "/ignore file coverage/",
+      "ignoreCoverage": "/ignore coverage/"
+    }
   }
 }

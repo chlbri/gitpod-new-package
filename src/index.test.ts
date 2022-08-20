@@ -1,3 +1,4 @@
+import { expect, it } from 'vitest';
 import { sum } from '.';
 
 it('adds 1 + 2 to equal 3', () => {
