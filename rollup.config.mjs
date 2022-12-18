@@ -2,6 +2,7 @@
 import dts from 'rollup-plugin-dts';
 import esbuild from 'rollup-plugin-esbuild';
 import { terser } from 'rollup-plugin-terser';
+import tsConfigPaths from 'rollup-plugin-tsconfig-paths';
 
 /** @type {import('rollup').defineConfig} */
 const bundle = config => ({
